@@ -107,7 +107,7 @@ public class PriorityManager : MonoBehaviour
         }
 
 		var redKinematicData = new KinematicData(new StaticData(this.RedCharacter.GameObject.transform.position));
-		var wander = new DynamicWander
+		var arrive = new DynamicArrive
 		{
 			Character = this.RedCharacter.KinematicData,
 			Target = redKinematicData,
@@ -115,11 +115,25 @@ public class PriorityManager : MonoBehaviour
 			MovementDebugColor = Color.yellow
 		};
 		
-		this.Priority.Movements.Add(wander);
-		this.Blended.Movements.Add(new MovementWithWeight(wander,obstacles.Length+this.Characters.Count));
+		this.Priority.Movements.Add(arrive);
+		this.Blended.Movements.Add(new MovementWithWeight(arrive,obstacles.Length+this.Characters.Count));
 		
 		this.RedCharacter.Movement = this.Blended;
 
+//		var redKinematicData = new KinematicData(new StaticData(this.RedCharacter.GameObject.transform.position));
+//		var wander = new DynamicWander
+//		{
+//			Character = this.RedCharacter.KinematicData,
+//			Target = redKinematicData,
+//			MaxAcceleration = MAX_ACCELERATION,
+//			MovementDebugColor = Color.yellow
+//		};
+//		
+//		this.Priority.Movements.Add(wander);
+//		this.Blended.Movements.Add(new MovementWithWeight(wander,obstacles.Length+this.Characters.Count));
+//		
+//		this.RedCharacter.Movement = this.Blended;
+//
     }
 
     private void InitializeSecondaryCharacter(DynamicCharacter character, GameObject[] obstacles)

@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\Arbitration\BlendedMovement.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\Arbitration\PriorityMovement.cs" />
+     <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicArrive.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicCharacter.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicFlee.cs" />
      <Compile Include="Assets\Scripts\IAJ.Unity\Movement\DynamicMovement\DynamicMovement.cs" />
