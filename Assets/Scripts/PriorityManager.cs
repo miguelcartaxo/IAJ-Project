@@ -50,7 +50,7 @@ public class PriorityManager : MonoBehaviour
         
 	    var obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
 
-	    this.Characters = this.CloneSecondaryCharacters(redObj, 5, obstacles);
+	    this.Characters = this.CloneSecondaryCharacters(redObj, 2, obstacles);
 	    this.Characters.Add(this.RedCharacter);
 
         this.InitializeMainCharacter(obstacles);
@@ -105,8 +105,21 @@ public class PriorityManager : MonoBehaviour
                 //this.Priority.Movements.Add(avoidCharacter);
             }
         }
-
 		var redKinematicData = new KinematicData(new StaticData(this.RedCharacter.GameObject.transform.position));
+
+		var cohesion = new Cohesion
+		{
+			Character = this.RedCharacter.KinematicData,
+			Target = redKinematicData,
+			MovingTarget = redKinematicData,
+			MaxAcceleration = MAX_ACCELERATION,
+			Flock = this.Characters,
+			Radius = 5.0f,
+			FanAngle = 60.0f
+		};
+
+		this.Blended.Movements.Add(new MovementWithWeight(cohesion, 5.0f));
+
 		var wander = new DynamicWander
 		{
 			Character = this.RedCharacter.KinematicData,
@@ -162,16 +175,28 @@ public class PriorityManager : MonoBehaviour
             }
         }
 
-        var straightAhead = new DynamicStraightAhead
-        {
-            Character = character.KinematicData,
-            MaxAcceleration = MAX_ACCELERATION,
-            MovementDebugColor = Color.yellow
-        };
+//        var straightAhead = new DynamicStraightAhead
+//        {
+//            Character = character.KinematicData,
+//            MaxAcceleration = MAX_ACCELERATION,
+//            MovementDebugColor = Color.yellow
+//        };
+//
+//        priority.Movements.Add(straightAhead);
+		var redKinematicData = new KinematicData(new StaticData(this.RedCharacter.GameObject.transform.position));
 
-        priority.Movements.Add(straightAhead);
+		var cohesion = new Cohesion{
+			Character = this.RedCharacter.KinematicData,
+			Target = redKinematicData,
+			MovingTarget = redKinematicData,
+			MaxAcceleration = MAX_ACCELERATION,
+			Flock = this.Characters,
+			Radius = 5.0f,
+			FanAngle = 60.0f
+		};
 
-        character.Movement = priority;
+		this.Blended.Movements.Add(new MovementWithWeight(cohesion,5.0f));
+        character.Movement = this.Blended;
     }
 
     private List<DynamicCharacter> CloneSecondaryCharacters(GameObject objectToClone,int numberOfCharacters, GameObject[] obstacles)
